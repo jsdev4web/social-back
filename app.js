@@ -5,8 +5,10 @@ import cors from "cors"
 app.use(cors({
   origin: function (origin, callback) {
     const allowedOrigins = [
-      "http://localhost:5173",
-    ];
+  "http://localhost:5173",
+  "https://social-front-n56hxhmrh-jsdev4webs-projects.vercel.app",
+  process.env.FRONTEND_URL
+].filter(Boolean);
 
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
