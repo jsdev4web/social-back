@@ -41,6 +41,8 @@ import { friendsRouter } from "./routes/friendsRouter.js";
 app.use(express.json()) //auto parse JSON request, req.body woudld not work
 app.use(express.urlencoded({ extended: false })); //parse html form data readable
 
+app.set("trust proxy", 1);
+
 //app.use(session({ secret: "cats", resave: false, saveUninitialized: false}));
 app.use(session({
   secret: "cats",
