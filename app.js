@@ -25,7 +25,7 @@ app.use(cors({
   "http://127.0.0.1:5173",
   "https://social-front-3blu2vqlf-jsdev4webs-projects.vercel.app",
   "https://social-front-eight.vercel.app",
-  "https://social-front-n56hxhmrh-jsdev4webs-projects.vercel.app",
+  "https://social-front-811ma2mqp-jsdev4webs-projects.vercel.app",
   process.env.FRONTEND_URL
 ].filter(Boolean);
 
