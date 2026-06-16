@@ -19,22 +19,8 @@ import { friendsRouter } from "./routes/friendsRouter.js";
 
 
 app.use(cors({
-  origin: function (origin, callback) {
-    const allowedOrigins = [
-  "http://localhost:5173",
-  "http://127.0.0.1:5173",
-  "https://social-front-eight.vercel.app",
-  process.env.FRONTEND_URL
-].filter(Boolean);
-
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS: " + origin));
-    }
-  },
+  origin: process.env.FRONTEND_URL,
   credentials: true,
-  allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
 
