@@ -7,7 +7,7 @@ import passport from "passport"; //local auth app
 import {logins} from "./auth/passport.js"
 logins(passport);
 
-const _dirname = path.resolve //creates a absolute path to working dir
+const _dirname = path.resolve() //creates a absolute path to working dir
 
 import { indexRouter } from "./routes/indexRouter.js";
 import { authRouter } from "./routes/authRouter.js";
@@ -22,6 +22,8 @@ app.use(cors({
   origin: function (origin, callback) {
     const allowedOrigins = [
   "http://localhost:5173",
+  "http://127.0.0.1:5173",
+  "https://social-front-eight.vercel.app",
   "https://social-front-n56hxhmrh-jsdev4webs-projects.vercel.app",
   process.env.FRONTEND_URL
 ].filter(Boolean);
@@ -41,17 +43,18 @@ app.use(express.json()) //auto parse JSON request, req.body woudld not work
 app.use(express.urlencoded({ extended: false })); //parse html form data readable
 
 
+const isProduction = process.env.NODE_ENV === "production";
+
 app.set("trust proxy", 1);
 
-//app.use(session({ secret: "cats", resave: false, saveUninitialized: false}));
 app.use(session({
-  secret: "cats",
+  secret: process.env.SESSION_SECRET || "cats",
   resave: false,
   saveUninitialized: false,
   cookie: {
     httpOnly: true,
-    secure: true,      // MUST be false for HTTP localhost
-    sameSite: "none"     // IMPORTANT for cross-origin dev
+    secure: isProduction,
+    sameSite: isProduction ? "none" : "lax"
   }
 }));
 app.use(passport.initialize());
