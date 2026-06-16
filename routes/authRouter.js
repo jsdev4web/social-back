@@ -17,6 +17,17 @@ authRouter.post("/login", passport.authenticate("local"), (req, res) => {
   });
 });
 
+authRouter.get("/me", (req, res) => {
+  console.log("AUTH ME SESSION:", req.session);
+  console.log("AUTH ME USER:", req.user);
+
+  res.json({
+    isAuthenticated: req.isAuthenticated(),
+    user: req.user || null,
+    session: req.session,
+  });
+});
+
 authRouter.get("/log-out", (req, res, next) => {
   req.logout((err) => {
     if (err) {

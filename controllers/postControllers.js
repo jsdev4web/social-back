@@ -74,6 +74,7 @@ async function deletePost(req, res) {
 }
 
 async function feedPost(req, res) {
+  
   try {
     const userId = req.user.id;
 

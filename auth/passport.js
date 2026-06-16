@@ -37,14 +37,14 @@ const logins = passport => {
 
   // both of these functions are session data
   passport.serializeUser((user, done) => {
-  //console.log("serializeUser fired:", user.id);
+  console.log("serializeUser fired:", user.id);
   done(null, user.id);
 });
 
 passport.deserializeUser(async (id, done) => {
   try {
-    //console.log("DESERIALIZE USER RUNNING");
-    //console.log("ID FROM SESSION:", id);
+    console.log("DESERIALIZE USER RUNNING");
+    console.log("ID FROM SESSION:", id);
 
     const user = await prisma.user.findUnique({
       where: {
