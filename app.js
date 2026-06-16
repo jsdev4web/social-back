@@ -48,16 +48,21 @@ const isProduction = process.env.NODE_ENV === "production";
 
 app.set("trust proxy", 1);
 
-app.use(session({
-  secret: process.env.SESSION_SECRET || "cats",
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    httpOnly: true,
-    secure: true,
-    sameSite: NONAME,
-  }
-}));
+app.use(
+  session({
+    name: "sid",
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    proxy: true,
+    cookie: {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+      maxAge: 1000 * 60 * 60 * 24,
+    },
+  })
+);
 app.use(passport.initialize());
 app.use(passport.session());
 
