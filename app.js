@@ -5,6 +5,8 @@ import path from "node:path"; // route internal files and folders in os systems
 import session from "express-session"; //save cookie session
 import passport from "passport"; //local auth app
 import {logins} from "./auth/passport.js"
+import dotenv from "dotenv"
+dotenv.config()
 logins(passport);
 
 const _dirname = path.resolve() //creates a absolute path to working dir
