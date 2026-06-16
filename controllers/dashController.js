@@ -48,32 +48,32 @@ async function getProfiles(req, res) {
 
 async function followUser(req, res) {
   try {
-    console.log("BODY:", req.body);
+    if (!req.user) {
+      return res.status(401).json({
+        message: "Not authenticated",
+      });
+    }
 
     const followerId = req.user.id;
     const { followingId } = req.body;
 
-    console.log("Follower:", followerId);
-    console.log("Following:", followingId);
-    console.log("REQ USER ID:", req.user.id);
-
-    await prisma.follow.create({
+    const follow = await prisma.follow.create({
       data: {
         followerId: Number(followerId),
         followingId: Number(followingId),
       },
-      skipDuplicates: true,
     });
 
-    return res.status(201).json({
-      message: "User followed successfully",
+    res.json({
+      success: true,
+      follow,
     });
-
   } catch (error) {
-    console.error("Follow Error:", error);
+    console.error("Follow error:", error);
 
-    return res.status(500).json({
-      error: "Unable to follow user",
+    res.status(500).json({
+      message: "Error following user",
+      error: error.message,
     });
   }
 }
