@@ -87,4 +87,40 @@ async function uploadPhoto(req, res) {
   }
 }
 
-export { getProfile, uploadPhoto }
+async function deleteProfileImage(req, res) {
+  try {
+    if (!req.user) {
+      return res.status(401).json({
+        message: "Not authenticated",
+      });
+    }
+
+    const updatedUser = await prisma.user.update({
+      where: {
+        id: req.user.id,
+      },
+      data: {
+        image: null,
+      },
+      select: {
+        id: true,
+        name: true,
+        image: true,
+      },
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Profile image deleted",
+      user: updatedUser,
+    });
+  } catch (error) {
+    console.error("Delete Profile Image Error:", error);
+
+    return res.status(500).json({
+      message: "Could not delete profile image",
+    });
+  }
+}
+
+export { getProfile, uploadPhoto, deleteProfileImage }

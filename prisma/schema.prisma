@@ -18,13 +18,12 @@ model User {
   name      String?
   password  String?
 
-  image     String? // optional profile image
+  image         String?
+  imagePublicId String?
 
-  // Follow system
   following Follow[] @relation("UserFollowing")
   followers Follow[] @relation("UserFollowers")
 
-  // Post system
   posts     Post[]
   comments  Comment[]
   likes     Like[]
