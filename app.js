@@ -79,7 +79,8 @@ console.log("session:", req.session);
   console.log("session:", req.session);
   console.log("user:", req.user);
 
-  res.json({
+ res.json({
+    sessionID: req.sessionID,
     session: req.session,
     user: req.user
   });
