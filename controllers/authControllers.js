@@ -13,7 +13,6 @@ async function signUp(req, res) {
 
     const { user, password } = req.body;
 
-    // 🔥 HASH PASSWORD HERE
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = await prisma.user.create({
